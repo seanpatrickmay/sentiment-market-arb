@@ -1,0 +1,6 @@
+Alembic migration environment for the sports pure arbitrage backend.
+
+Use `alembic revision --autogenerate -m "message"` to create new revisions
+and `alembic upgrade head` to apply them. The FastAPI app also runs
+`upgrade head` on startup using this environment.
+
