@@ -3,9 +3,6 @@ from __future__ import annotations
 from datetime import datetime
 from typing import Any, Optional
 
-import httpx
-
-from app.config import settings
 from db import models
 from db.session import SessionLocal
 from ingestion.utils import create_quotes_for_market
@@ -100,4 +97,3 @@ def ingest_kalshi_quotes() -> int:
         db.close()
 
     return created
-

@@ -50,6 +50,7 @@ class SportsEvent(Base):
     canonical_name: Mapped[str] = mapped_column(String(200), nullable=False)
     status: Mapped[str] = mapped_column(String(50), nullable=False, default="scheduled")
     source: Mapped[Optional[str]] = mapped_column(String(50), nullable=True)
+    external_event_ref: Mapped[Optional[str]] = mapped_column(String(100), nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=datetime.utcnow)
     updated_at: Mapped[datetime] = mapped_column(
         DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow

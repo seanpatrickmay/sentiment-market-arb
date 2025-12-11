@@ -8,7 +8,7 @@ from db import models_arbs, models
 from core.arb_engine import scan_all_events_for_arbs
 
 
-router = APIRouter(prefix="/arbs", tags=["arbitrage"])
+router = APIRouter(prefix="/arbs", tags=["arbitrage"], redirect_slashes=False)
 
 
 @router.post("/scan", response_model=dict)
@@ -17,7 +17,7 @@ def scan_for_arbitrage(db: Session = Depends(get_db)):
     return {"detected_opportunities": created}
 
 
-@router.get("/", response_model=List[dict])
+@router.get("", response_model=List[dict])
 def list_arbs(
     min_roi: Optional[float] = Query(None),
     limit: int = Query(50, ge=1, le=200),
@@ -81,4 +81,3 @@ def get_arb(arb_id: int, db: Session = Depends(get_db)):
         "status": op.status,
         "legs": legs_out,
     }
-

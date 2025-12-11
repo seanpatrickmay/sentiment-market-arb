@@ -4,6 +4,7 @@ import os
 from alembic import command
 from alembic.config import Config
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.routers.health import router as health_router
 from app.api.routers.ingestion import router as ingestion_router
@@ -19,6 +20,15 @@ logger = logging.getLogger(__name__)
 
 
 app = FastAPI(title="Sports Pure Arb Backend", version="0.1.0")
+
+# CORS for local dev (frontend on 5173)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.on_event("startup")

@@ -6,6 +6,13 @@ frontend/.env
 # Python / backend
 __pycache__/
 *.pyc
+*.pem
+*.key
+.venv
+venv
+backend/.venv
+backend/.pytest_cache
+backend/.mypy_cache
 
 # General
 .DS_Store

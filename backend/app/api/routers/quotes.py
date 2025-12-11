@@ -7,10 +7,10 @@ from db.session import get_db
 from db import models
 
 
-router = APIRouter(prefix="/quotes", tags=["quotes"])
+router = APIRouter(prefix="/quotes", tags=["quotes"], redirect_slashes=False)
 
 
-@router.get("/", response_model=List[dict])
+@router.get("", response_model=List[dict])
 def list_quotes(
     market_id: Optional[int] = Query(None),
     sports_event_id: Optional[int] = Query(None),

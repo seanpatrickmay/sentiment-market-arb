@@ -9,10 +9,10 @@ from db import models
 from mapping.engine import bulk_suggest_for_unmapped_markets
 
 
-router = APIRouter(prefix="/mapping-candidates", tags=["mapping"])
+router = APIRouter(prefix="/mapping-candidates", tags=["mapping"], redirect_slashes=False)
 
 
-@router.get("/", response_model=List[dict])
+@router.get("", response_model=List[dict])
 def list_mapping_candidates(
     status: str = Query("pending"),
     limit: int = Query(50, ge=1, le=500),
@@ -122,4 +122,3 @@ def reject_mapping_candidate(candidate_id: int, db: Session = Depends(get_db)):
     db.commit()
 
     return {"status": "rejected", "candidate_id": candidate_id}
-

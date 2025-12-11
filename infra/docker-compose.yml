@@ -18,13 +18,23 @@ services:
       context: ..
       dockerfile: backend/Dockerfile
     restart: unless-stopped
-    environment:
-      DATABASE_URL: postgresql+psycopg2://sentiment_arb_user:sentiment_arb_password@db:5432/sentiment_arb
+    env_file:
+      - ../.env
     depends_on:
       - db
     ports:
       - "8000:8000"
 
+  frontend:
+    build:
+      context: ..
+      dockerfile: frontend/Dockerfile
+    environment:
+      VITE_API_BASE: http://localhost:8000
+    depends_on:
+      - backend
+    ports:
+      - "5173:5173"
+
 volumes:
   db_data:
-

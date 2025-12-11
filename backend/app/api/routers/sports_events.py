@@ -6,10 +6,10 @@ from sqlalchemy.orm import Session
 from db.session import get_db
 from db import models
 
-router = APIRouter(prefix="/sports-events", tags=["sports-events"])
+router = APIRouter(prefix="/sports-events", tags=["sports-events"], redirect_slashes=False)
 
 
-@router.get("/", response_model=List[dict])
+@router.get("", response_model=List[dict])
 def list_sports_events(
     sport: Optional[str] = None,
     db: Session = Depends(get_db),
@@ -59,4 +59,3 @@ def get_sports_event(event_id: int, db: Session = Depends(get_db)):
         "status": ev.status,
         "markets": markets,
     }
-

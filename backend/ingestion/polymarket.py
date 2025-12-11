@@ -27,8 +27,10 @@ def fetch_raw_markets() -> list[dict]:
     Fetch raw Polymarket markets.
 
     This assumes the configured POLYMARKET_API_BASE exposes a `/markets`
-    endpoint returning either a list of markets or an object with a `markets`
-    field. Adjust the path/shape if your deployment differs.
+    endpoint returning either:
+      - {"data": [...]} (clob.polymarket.com)
+      - {"markets": [...]} or a bare list.
+    Adjust the path/shape if your deployment differs.
     """
     url = f"{settings.polymarket_api_base.rstrip('/')}/markets"
     headers = {}
@@ -40,12 +42,14 @@ def fetch_raw_markets() -> list[dict]:
         resp.raise_for_status()
         data = resp.json()
 
+    # clob.polymarket.com shape: {"data": [...], "next_cursor": ..., ...}
+    if isinstance(data, dict):
+        if "data" in data and isinstance(data["data"], list):
+            return data["data"]
+        if "markets" in data and isinstance(data["markets"], list):
+            return data["markets"]
     if isinstance(data, list):
         return data
-    if isinstance(data, dict) and "markets" in data:
-        markets = data["markets"]
-        if isinstance(markets, list):
-            return markets
     raise RuntimeError("Unexpected Polymarket markets response shape")
 
 

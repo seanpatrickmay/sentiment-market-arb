@@ -5,12 +5,14 @@ from pydantic_settings import BaseSettings
 class Settings(BaseSettings):
     database_url: AnyUrl = "postgresql+psycopg2://sentiment_arb_user:sentiment_arb_password@db:5432/sentiment_arb"
 
-    polymarket_api_base: str = "https://api.polymarket.com"
+    # Polymarket CLOB API base. Default to clob.polymarket.com which is the current public endpoint.
+    polymarket_api_base: str = "https://clob.polymarket.com"
     polymarket_api_key: str | None = None
 
-    kalshi_api_base: str = "https://trading-api.kalshi.com/v1"
-    kalshi_api_key: str | None = None
-    kalshi_api_secret: str | None = None
+    kalshi_api_base: str = "https://api.elections.kalshi.com"
+    kalshi_key_id: str | None = None
+    kalshi_private_key: str | None = None
+    kalshi_environment: str = "prod"  # or "demo"
 
     min_worst_case_roi: float = 0.005  # 0.5%
     min_total_stake: float = 10.0

@@ -17,4 +17,6 @@ class NormalizedMarket:
     raw: dict[str, Any]
     parsed_sport_hint: Optional[str] = None
     parsed_league_hint: Optional[str] = None
-
+    parsed_home_team_hint: Optional[str] = None
+    parsed_away_team_hint: Optional[str] = None
+    event_ref_hint: Optional[str] = None
